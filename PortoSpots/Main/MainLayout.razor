@@ -1,0 +1,14 @@
+﻿@inherits LayoutComponentBase
+
+<div class="page">
+    <MudThemeProvider  DefaultScrollbar="true" Theme=@ThemeProvider.DefaultTheme/>
+    <MudDialogProvider/>
+    <MudSnackbarProvider />
+
+    <div class="main">
+        <TopBar/>
+        <div class="pa-3" >
+        @Body
+        </div>
+    </div>
+</div>
