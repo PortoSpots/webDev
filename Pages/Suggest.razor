@@ -1,0 +1,32 @@
+@page "/suggest"
+@inject HttpClient Http
+@inject ILogger<Suggest> Logger
+
+@using Microsoft.Extensions.Logging
+    
+<h1>Suggest something!</h1>
+
+<EditForm Model="@suggestion" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <h4>Name</h4>
+    <InputText id="name" @bind-Value="suggestion.Name" />
+    <h4>Email</h4>
+    <InputText id="email" @bind-Value="suggestion.Email" />
+    <h4>Suggestion Text</h4>
+    <InputText id="suggestion-text" @bind-Value="suggestion.SuggestionText" />
+
+    <button type="submit">Submit</button>
+</EditForm>
+
+@code {
+    private Suggestion suggestion = new();
+
+    private void HandleValidSubmit()
+    {
+        Logger.LogInformation("HandleValidSubmit called");
+
+        // Process the valid form
+    }
+}
