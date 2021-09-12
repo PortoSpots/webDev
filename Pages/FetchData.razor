@@ -11,16 +11,18 @@
 }
 else
 {
+    <div style="display:flex;flex-direction:row;overflow:scroll;">
         @foreach( var item in items)
         {
             <p>@item.Title</p>
-            <img  src="@item.Thumbnail"/>
+            <img style="width:400px;height:200px;"  src="@item.Thumbnail"/>
             <p>@item.Description</p>
         }  
+    </div>
 }
 
 @code {
-    private ItemTest[] items;
+    private ItemTest[]? items;
 
     protected override async Task OnInitializedAsync()
     {
@@ -29,9 +31,9 @@ else
 
     public record ItemTest
     {
-        public string Thumbnail { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
+        public string? Thumbnail { get; set; }
+        public string? Title { get; set; }
+        public string? Description { get; set; }
 
     }
 }
