@@ -1,0 +1,33 @@
+# This is a basic workflow that is manually triggered
+
+name: Deploy Signal workflow
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ production ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+ DeploySignal:
+    runs-on: ubuntu-latest
+    steps:
+      - name: PING - Dispatch initiating repository event
+        if: github.event.action != 'pong'
+        run: |
+          curl -X POST https://api.github.com/repos/PortoSpots/WebPage/dispatches \
+          -H 'Accept: application/vnd.github.everest-preview+json' \
+          -u ${{ secrets.ACCESS_TOKEN }} \
+          --data '{"event_type": "DeployPing", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
+      - name: ACK - Acknowledge pong from remote repository
+        if: github.event.action == 'pong'
+        run: |
+          echo "PONG received from '${{ github.event.client_payload.repository }}'" && \
+          curl -X POST https://api.github.com/repos/PortoSpots/WebPage/dispatches \
+          -H 'Accept: application/vnd.github.everest-preview+json' \
+          -u ${{ secrets.ACCESS_TOKEN }} \
+          --data '{"event_type": "DeployAck", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
