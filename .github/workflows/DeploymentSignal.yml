@@ -24,7 +24,7 @@ jobs:
           -u ${{ secrets.ACCESS_TOKEN }} \
           --data '{"event_type": "DeployPing", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
       - name: ACK - Acknowledge pong from remote repository
-        if: github.event.action == 'pong'
+        if: github.event.action == 'DeployPong'
         run: |
           echo "PONG received from '${{ github.event.client_payload.repository }}'" && \
           curl -X POST https://api.github.com/repos/PortoSpots/WebPage/dispatches \
