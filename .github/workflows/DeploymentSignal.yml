@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: PING - Dispatch initiating repository event
-        if: github.event.action != 'pong'
+        if: github.event.action != 'DeployPong'
         run: |
           curl -X POST https://api.github.com/repos/PortoSpots/WebPage/dispatches \
           -H 'Accept: application/vnd.github.everest-preview+json' \
