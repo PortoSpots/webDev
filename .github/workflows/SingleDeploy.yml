@@ -13,13 +13,17 @@ jobs:
     runs-on: ubuntu-latest
     container: pandoc/latex
     steps:
+      - name: Create Test Directory
+        run: |
+          mkdir TestFolder
+          touch TestFolder/TestFile1.txt
       - name: Pushes to another repository
         id: push_directory
         uses: cpina/github-action-push-to-another-repository@main
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
-          source-directory: '../../TestAutoCommit'
+          source-directory: '../../TestFolder'
           destination-github-username: 'PortoSpots'
           destination-repository-name: 'WebPage'
           user-email: portospots@gmail.com
