@@ -11,24 +11,18 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: pandoc/latex
     steps:
      # uses GitHub's checkout action to checkout code form the master branch
     - uses: actions/checkout@v2
     
     # sets up .NET Core SDK 3.1
     - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 6.0.100-preview.7.21379.14
+      uses: actions/setup-dotnet@v1.8.2
         
     # publishes Blazor project to the release-folder
     - name: Publish .NET Core Project
       run: |
-        ls
-        cd ../../
-        ls
-        dotnet publish BlazorGitHubPagesDemo.csproj -c Release -o ./.github/workflows/Release --nologo    
+        dotnet publish BlazorGitHubPagesDemo.csproj -c Release -o release --nologo    
         
     - name: Pushes to another repository
       id: push_directory
@@ -36,7 +30,7 @@ jobs:
       env:
         API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
       with:
-          source-directory: 'Release/wwwroot'
+          source-directory: 'release/wwwroot'
           destination-github-username: 'PortoSpots'
           destination-repository-name: 'WebPage'
           user-email: portospots@gmail.com
