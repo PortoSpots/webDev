@@ -23,7 +23,7 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
-          source-directory: '../../TestFolder'
+          source-directory: 'TestFolder'
           destination-github-username: 'PortoSpots'
           destination-repository-name: 'WebPage'
           user-email: portospots@gmail.com
