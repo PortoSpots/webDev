@@ -24,4 +24,4 @@ jobs:
           destination-repository-name: 'WebPage'
           user-email: portospots@gmail.com
           commit-message: 'Test auto commit msg'
-          target-branch: main
+          target-branch: master
