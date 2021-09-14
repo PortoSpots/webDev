@@ -16,7 +16,8 @@ jobs:
       - name: Create Test Directory
         run: |
           mkdir TestFolder
-          touch TestFolder/TestFile1.txt
+          mkdir TestFolder/TestSubFolder
+          touch TestFolder/TestSubFolder/TestFile1.txt
       - name: Pushes to another repository
         id: push_directory
         uses: cpina/github-action-push-to-another-repository@main
