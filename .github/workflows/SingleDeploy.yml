@@ -5,7 +5,6 @@ name: Single Deploy
 # Controls when the workflow will run
 on:
   push:
-    branches: [ production ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -14,8 +13,6 @@ jobs:
     steps:
      # uses GitHub's checkout action to checkout code form the master branch
     - uses: actions/checkout@v2
-      with:
-        ref: production
     
     # sets up .NET Core SDK 3.1
     - name: Setup .NET Core SDK
