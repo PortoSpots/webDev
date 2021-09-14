@@ -13,18 +13,30 @@ jobs:
     runs-on: ubuntu-latest
     container: pandoc/latex
     steps:
-      - name: Create Test Directory
-        run: |
-          mkdir TestFolder
-          mkdir TestFolder/TestSubFolder
-          touch TestFolder/TestSubFolder/TestFile1.txt
-      - name: Pushes to another repository
-        id: push_directory
-        uses: cpina/github-action-push-to-another-repository@main
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
-        with:
-          source-directory: 'TestFolder'
+     # uses GitHub's checkout action to checkout code form the master branch
+    - uses: actions/checkout@v2
+    
+    # sets up .NET Core SDK 3.1
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.100-preview.7.21379.14
+        
+    # publishes Blazor project to the release-folder
+    - name: Publish .NET Core Project
+      run: |
+        ls
+        cd ../../
+        ls
+        dotnet publish BlazorGitHubPagesDemo.csproj -c Release -o ./.github/workflows/Release --nologo    
+        
+    - name: Pushes to another repository
+      id: push_directory
+      uses: cpina/github-action-push-to-another-repository@main
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+      with:
+          source-directory: 'Release/wwwroot'
           destination-github-username: 'PortoSpots'
           destination-repository-name: 'WebPage'
           user-email: portospots@gmail.com
