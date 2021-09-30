@@ -17,7 +17,8 @@ namespace porto_spots.Services
                 Tertiary = "#EDE7E3",
                 Dark = "#3E1929",
                 Surface = "#ffffff",
-                AppbarBackground = "#ffffff"
+                AppbarBackground = "#ffffff",
+                OverlayDark= "#212121e6"
             },
 
             LayoutProperties = new LayoutProperties()

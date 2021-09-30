@@ -1,5 +1,79 @@
-﻿<MudAppBar Elevation=0 Dense=true Color=Color.Primary>
-    <MudText Typo=Typo.h5 Color=Color.Surface Style="font-weight:600;">Porto Spots Changed</MudText>
+<MudAppBar Elevation=0 Dense=true Class="sliding-appbar divider-appbar" Color=Color.Surface Style="@(HideAppBar? "top:-50px;" : "top:0px;")">
+    @*<MudText Typo=Typo.h3 Color=Color.Primary Style="font-weight:900;">•</MudText>*@
+    @*<MudText Typo=Typo.h5 Color=Color.Dark Style="font-weight:800;">Porto Spots</MudText>*@
+    <Logo Style="width:130px;fill:black;"/>
+
     <MudSpacer />
-    <MudIconButton Icon="fas fa-globe-africa" />
+    <div style="background-color: #f3f3f3;border-radius: 10px;width: 32vw;height: 82%;padding: 0px 10px 1px 10px;">
+
+    <MudAutocomplete T="string" @bind-Value="searchVal" SearchFunc=Search Style="transform: translate(0px, -12px);"
+                         ResetValueOnEmptyText="true"
+                        Variant=Variant.Text
+                        DisableUnderLine=true
+                        Placeholder="Search"
+background-color             AutoFocus=true
+                        Dense=true
+                          AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Dark"/>
+    </div>
+    <MudSpacer />
+    <MudIconButton Color=Color.Default Icon="fas fa-paper-plane" Style="margin:5px"/>
+    <MudIconButton Color=Color.Default Icon="fas fa-mug-hot" Style="margin:5px"/>
+    <MudIconButton Color=Color.Default Icon="fas fa-globe-africa" Style="margin:5px"/>
 </MudAppBar>
+ <MudScrollToTop OnScroll="OnScroll"/>
+
+ <style>
+ .sliding-appbar{
+     transition: top 0.3s;
+ }
+
+ .divider-appbar{
+     border: solid #8080801f;
+    border-width: 0px 0px 1px 0px;
+ }
+</style>
+@code
+{
+    bool HideAppBar;
+    double currentScrollValue=0;
+
+    private void OnScroll(ScrollEventArgs e)
+    {
+        var scrollValue = e.FirstChildBoundingClientRect.Top;
+        HideAppBar = scrollValue != 0 && scrollValue < currentScrollValue;
+        currentScrollValue = scrollValue;
+    }
+
+
+
+    private string searchVal="";
+     private string[] states =
+    {
+        "Alabama", "Alaska", "American Samoa", "Arizona",
+        "Arkansas", "California", "Colorado", "Connecticut",
+        "Delaware", "District of Columbia", "Federated States of Micronesia",
+        "Florida", "Georgia", "Guam", "Hawaii", "Idaho",
+        "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky",
+        "Louisiana", "Maine", "Marshall Islands", "Maryland",
+        "Massachusetts", "Michigan", "Minnesota", "Mississippi",
+        "Missouri", "Montana", "Nebraska", "Nevada",
+        "New Hampshire", "New Jersey", "New Mexico", "New York",
+        "North Carolina", "North Dakota", "Northern Mariana Islands", "Ohio",
+        "Oklahoma", "Oregon", "Palau", "Pennsylvania", "Puerto Rico",
+        "Rhode Island", "South Carolina", "South Dakota", "Tennessee",
+        "Texas", "Utah", "Vermont", "Virgin Island", "Virginia",
+        "Washington", "West Virginia", "Wisconsin", "Wyoming",
+    };
+     private async Task<IEnumerable<string>> Search(string value)
+    {
+        // In real life use an asynchronous function for fetching data from an api.
+        await Task.Delay(1);
+
+        // if text is null or empty, show complete list
+        if (string.IsNullOrEmpty(value)) return states;
+
+        var lastValue= value.Contains(";")? value.Split(';')[^1]: value;
+        Console.WriteLine("last " + lastValue);
+        return states.Where(x => x.Contains(lastValue, StringComparison.InvariantCultureIgnoreCase));
+    }
+}
