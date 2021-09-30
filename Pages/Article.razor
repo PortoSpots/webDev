@@ -1,7 +1,7 @@
 ﻿@page "/article/{ArticleName}"
 
 
-<MudCarousel onclick=@OpenOverlay class="articleImages d-flex" Style="height:350px;" AutoCycle=false TData=object>
+<MudCarousel onclick=OpenOverlay class="articleImages d-flex" Style="height:350px;" AutoCycle=false TData=object>
 	<DelimiterTemplate Context="selected">
 		<div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
 			<span class="carouselTab @(selected ? "carouselTab-selected" :"")"/>
@@ -52,7 +52,7 @@
 <MudOverlay @bind-Visible="isFullCarouselOpen" DarkBackground="true" AutoClose="true" Style="z-index:1200;" />
 @*<MudIconButton Icon=@Icons.Rounded.Close Color=Color.Surface Style="z-index:1202;position:absolute;top:10%;right:10%;" OnClick=@CloseOverlay />*@
  <MudFab Color="Color.Transparent" Icon="@Icons.Rounded.Close" Size="Size.Small" IconSize="Size.Medium" DisableElevation=true Style="color: white;z-index:1202;position:absolute;top:7%;right:6%;" OnClick=@CloseOverlay  />
-<MudCarousel SelectedIndex=fullScreenTabIndex ItemsSource=articlePicUrls onclick=@OpenOverlay class="articleImages d-flex"  Style="z-index:1201;position:absolute;top:50%;left:50%;height:90%;width:90%;transform:translate(-50%,-50%)"  AutoCycle=false TData=object>
+<MudCarousel SelectedIndex=fullScreenTabIndex ItemsSource=articlePicUrls onclick=OpenOverlay class="articleImages d-flex"  Style="z-index:1201;position:absolute;top:50%;left:50%;height:90%;width:90%;transform:translate(-50%,-50%)"  AutoCycle=false TData=object>
 	<DelimiterTemplate  Context="selected">
 		<div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
 			<span class="carouselTab @(selected ? "carouselTab-selected" :"")"/>
