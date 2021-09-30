@@ -1,7 +1,7 @@
 ﻿@page "/article/{ArticleName}"
 
 
-<MudCarousel onclick=OpenOverlay class="articleImages d-flex" Style="height:350px;" AutoCycle=false TData=object>
+<MudCarousel @bind-SelectedIndex=screenTabIndex  class="articleImages d-flex" Style="height:350px;" AutoCycle=false TData=object>
 	<DelimiterTemplate Context="selected">
 		<div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
 			<span class="carouselTab @(selected ? "carouselTab-selected" :"")"/>
@@ -10,22 +10,22 @@
 	<ChildContent>
 		<MudCarouselItem Transition="Transition.Slide" Color="@Color.Primary">
 			<div class="d-flex" style="height:100%">
-				<img class="fitter" src="https://images.unsplash.com/photo-1632813101586-c6243f84a800?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80" />
+				<img  @onclick=OpenOverlay class="fitter" src="https://images.unsplash.com/photo-1632813101586-c6243f84a800?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80" />
 			</div>
 		</MudCarouselItem>
 		<MudCarouselItem Transition="Transition.Slide" Color="@Color.Primary">
 			<div class="d-flex" style="height:100%">
-				<img class="fitter" src="https://images.unsplash.com/photo-1632814501477-7f3a88232a17?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1172&q=80" />
+				<img  @onclick=OpenOverlay class="fitter" src="https://images.unsplash.com/photo-1632814501477-7f3a88232a17?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1172&q=80" />
 			</div>
 		</MudCarouselItem>
 		<MudCarouselItem Transition="Transition.Slide" Color="@Color.Primary">
 			<div class="d-flex" style="height:100%">
-				<img class="fitter" src="https://images.unsplash.com/photo-1632767576183-8a22609cc9e5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80" />
+				<img  @onclick=OpenOverlay class="fitter" src="https://images.unsplash.com/photo-1632767576183-8a22609cc9e5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80" />
 			</div>
 		</MudCarouselItem>
 		<MudCarouselItem Transition="Transition.Slide" Color="@Color.Primary">
 			<div class="d-flex" style="height:100%">
-				<img class="fitter" src="https://images.unsplash.com/photo-1586227740560-8cf2732c1531?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1261&q=80" />
+				<img  @onclick=OpenOverlay class="fitter" src="https://images.unsplash.com/photo-1586227740560-8cf2732c1531?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1261&q=80" />
 			</div>
 		</MudCarouselItem>
 	</ChildContent>
@@ -50,9 +50,8 @@
 
 @if(isFullCarouselOpen){
 <MudOverlay @bind-Visible="isFullCarouselOpen" DarkBackground="true" AutoClose="true" Style="z-index:1200;" />
-@*<MudIconButton Icon=@Icons.Rounded.Close Color=Color.Surface Style="z-index:1202;position:absolute;top:10%;right:10%;" OnClick=@CloseOverlay />*@
  <MudFab Color="Color.Transparent" Icon="@Icons.Rounded.Close" Size="Size.Small" IconSize="Size.Medium" DisableElevation=true Style="color: white;z-index:1202;position:absolute;top:7%;right:6%;" OnClick=@CloseOverlay  />
-<MudCarousel SelectedIndex=fullScreenTabIndex ItemsSource=articlePicUrls onclick=OpenOverlay class="articleImages d-flex"  Style="z-index:1201;position:absolute;top:50%;left:50%;height:90%;width:90%;transform:translate(-50%,-50%)"  AutoCycle=false TData=object>
+<MudCarousel SelectedIndex=fullScreenTabIndex ItemsSource=articlePicUrls class="articleImages d-flex" ShowDelimiters=true Style="z-index:1201;position:absolute;top:50%;left:50%;height:90%;width:90%;transform:translate(-50%,-50%)"  AutoCycle=false TData=object>
 	<DelimiterTemplate  Context="selected">
 		<div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
 			<span class="carouselTab @(selected ? "carouselTab-selected" :"")"/>

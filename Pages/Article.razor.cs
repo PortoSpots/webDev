@@ -15,7 +15,7 @@ namespace porto_spots.Pages
 
         //UI Aux Parameters
         private bool isFullCarouselOpen = false;
-        private int fullScreenTabIndex = 0;
+        private int fullScreenTabIndex=-1, screenTabIndex=-1;
 
         //Page Data Parameters
         [Parameter] public string ArticleName { get; set; } = "";
@@ -36,6 +36,7 @@ namespace porto_spots.Pages
         {
             isFullCarouselOpen = true;
             Console.WriteLine("Open overlay");
+            fullScreenTabIndex = screenTabIndex;
             await InvokeAsync(StateHasChanged);
         }
 
@@ -43,6 +44,11 @@ namespace porto_spots.Pages
         {
             isFullCarouselOpen = false;
             await InvokeAsync(StateHasChanged);
+        }
+
+        public void DelimiterPressed()
+		{
+            Console.WriteLine("Index changed");
         }
 
     }
