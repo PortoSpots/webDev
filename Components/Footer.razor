@@ -1,0 +1,77 @@
+﻿<div class="footer-container">
+	<div class="footer-logoColumn">
+		<Logo Style="fill:white;" />
+		<p>Find Spots in Porto with us</p>
+	</div>
+	<div class="footer-column">
+		<MudText Class="footer-column-header">Explore</MudText>
+		<MudButton Class="footer-column-entry" Color=Color.Tertiary Variant="Variant.Text">Home</MudButton>
+		<MudButton Class="footer-column-entry" Color=Color.Tertiary Variant="Variant.Text">Search</MudButton>
+		<MudButton Class="footer-column-entry" Color=Color.Tertiary Variant="Variant.Text">Random Spot</MudButton>
+	</div>
+	<div class="footer-column">
+		<MudText Class="footer-column-header">About</MudText>
+		<MudButton Class="footer-column-entry" Color=Color.Tertiary Variant="Variant.Text">The team</MudButton>
+		<MudButton Class="footer-column-entry" Color=Color.Tertiary Variant="Variant.Text">Our mission</MudButton>
+		
+	</div>
+	<div class="footer-column">
+		<MudText Class="footer-column-header">Contribute</MudText>
+		<MudButton Class="footer-column-entry" Color=Color.Tertiary Variant="Variant.Text">Pay us a coffe</MudButton>
+		<MudButton Class="footer-column-entry" Color=Color.Tertiary Variant="Variant.Text">Suggest a Spot</MudButton>
+	</div>
+	<div class="footer-column">
+		<MudText Class="footer-column-header">Language</MudText>
+		<MudButton Class="footer-column-entry" Color=Color.Tertiary Variant="Variant.Text">Português</MudButton>
+		<MudButton Class="footer-column-entry" Color=Color.Tertiary Variant="Variant.Text">English</MudButton>
+	</div>
+</div>
+
+
+<style>
+	.footer-container {
+		display: flex;
+		flex-grow: 1;
+		background-color: #5a95f5;
+		color: white;
+		border-radius: 10px 10px 0px 0px;
+		padding: 25px;
+		margin-top:100px;
+	}
+
+	.footer-column {
+		display: flex;
+		flex-direction: column;
+		margin: 20px;
+		margin-left: 45px;
+	}
+
+	.footer-logoColumn {
+		display: flex;
+		flex-direction: column;
+		margin: 20px;
+		margin-left: 15px;
+		margin-right: 50px;
+	}
+
+	.footer-column-header {
+		font-weight: bold;
+		padding-left: 0px;
+		font-size: large;
+		margin-bottom:10px;
+	}
+
+	.footer-column-entry {
+		justify-content: flex-start;
+		text-transform: unset;
+		padding: 1px;
+		opacity:70%;
+	}
+
+	.footer-column-textEntry {
+		margin-top: 10px;
+	}
+</style>
+@code {
+
+}

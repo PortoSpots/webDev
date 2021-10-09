@@ -12,9 +12,9 @@ namespace porto_spots.Services
         {
             Palette = new Palette()
             {
-                Primary = "#1F8BE9",
+                Primary = "#3874d6",
                 Secondary = "#FFA62B",
-                Tertiary = "#EDE7E3",
+                Tertiary = "#ffffff",
                 Dark = "#3E1929",
                 Surface = "#ffffff",
                 AppbarBackground = "#ffffff",

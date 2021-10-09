@@ -1,0 +1,35 @@
+﻿<MudButton Color=@Color.Primary class="tag">
+	<p class="tag-icon">@TagIcon</p>
+	<p class="tag-text">@TagName</p>
+</MudButton>
+
+
+
+<style>
+
+	.tag {
+		margin: 0px 3px 0px 3px;
+		background-color: #efefef;
+		padding: 7px;
+		padding-right:11px;
+		padding-left:11px;
+		border-radius: 20px;
+		display: inline-flex;
+		height: 100%;
+	}
+
+	.tag-icon {
+		margin-right: 6px;
+	}
+
+	.tag-text {
+		text-transform: capitalize;
+		color: black;
+	}
+</style>
+
+@code {
+
+	[Parameter] public string TagName { get; set; } = "Empty";
+	[Parameter] public string TagIcon { get; set; } = "🌉";
+}

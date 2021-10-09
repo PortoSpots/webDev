@@ -1,155 +1,244 @@
 ﻿@page "/article/{ArticleName}"
 
+@*------FullScreen Carousel---------*@
+@if (isFullCarouselOpen)
+{
+	<MudOverlay @bind-Visible="isFullCarouselOpen" DarkBackground="true" AutoClose="true" Style="z-index:1200;" />
+	<MudFab Color="Color.Transparent" Icon="@Icons.Rounded.Close" Size="Size.Small" IconSize="Size.Medium" DisableElevation=true Style="color: white;z-index:1202;position:absolute;top:7%;right:6%;" OnClick=@CloseOverlay />
+	<MudCarousel SelectedIndex=fullScreenTabIndex class="articleImages d-flex" ShowDelimiters=true Style="z-index:1201;position:absolute;top:50%;left:50%;height:90%;width:90%;transform:translate(-50%,-50%)" AutoCycle=false TData=object>
+		<DelimiterTemplate Context="selected">
+			<div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+				<span class="carouselTab @(selected ? "carouselTab-selected" :"")" />
+				@*<span class="fullCarouselTab @(selected ? "fullCarouselTab-selected" :"")" style="@fullCarousel[fullScreenTabIndex]"/>*@
+			</div>
+		</DelimiterTemplate>
+		<ChildContent>
+			@foreach (var articlePic in articlePicUrls)
+			{
+				<MudCarouselItem Transition=Transition.Fade Color=Color.Primary>
+					<div class="d-flex flex-column flex-column justify-center" style="height:100%">
+						<div class="d-flex" style="height:100%">
+							<img class="fitter" src="@articlePic" />
+						</div>
+					</div>
+				</MudCarouselItem>
+			}
 
-<MudCarousel @bind-SelectedIndex=screenTabIndex  class="articleImages d-flex" Style="height:350px;" AutoCycle=false TData=object>
-	<DelimiterTemplate Context="selected">
-		<div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
-			<span class="carouselTab @(selected ? "carouselTab-selected" :"")"/>
-		</div>
-	</DelimiterTemplate>
-	<ChildContent>
-		<MudCarouselItem Transition="Transition.Slide" Color="@Color.Primary">
-			<div class="d-flex" style="height:100%">
-				<img  @onclick=OpenOverlay class="fitter" src="https://images.unsplash.com/photo-1632813101586-c6243f84a800?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80" />
-			</div>
-		</MudCarouselItem>
-		<MudCarouselItem Transition="Transition.Slide" Color="@Color.Primary">
-			<div class="d-flex" style="height:100%">
-				<img  @onclick=OpenOverlay class="fitter" src="https://images.unsplash.com/photo-1632814501477-7f3a88232a17?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1172&q=80" />
-			</div>
-		</MudCarouselItem>
-		<MudCarouselItem Transition="Transition.Slide" Color="@Color.Primary">
-			<div class="d-flex" style="height:100%">
-				<img  @onclick=OpenOverlay class="fitter" src="https://images.unsplash.com/photo-1632767576183-8a22609cc9e5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80" />
-			</div>
-		</MudCarouselItem>
-		<MudCarouselItem Transition="Transition.Slide" Color="@Color.Primary">
-			<div class="d-flex" style="height:100%">
-				<img  @onclick=OpenOverlay class="fitter" src="https://images.unsplash.com/photo-1586227740560-8cf2732c1531?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1261&q=80" />
-			</div>
-		</MudCarouselItem>
-	</ChildContent>
-
-</MudCarousel>
-
-<style>
-	.carouselTab {
-		height: 5px;
-		width: 30px;
-		background-color: white;
-		border-radius: 5px;
-		opacity: 50%;
-	}
-
-	.carouselTab-selected {
-		opacity: 100%;
-	}
-</style>
-
-
-
-@if(isFullCarouselOpen){
-<MudOverlay @bind-Visible="isFullCarouselOpen" DarkBackground="true" AutoClose="true" Style="z-index:1200;" />
- <MudFab Color="Color.Transparent" Icon="@Icons.Rounded.Close" Size="Size.Small" IconSize="Size.Medium" DisableElevation=true Style="color: white;z-index:1202;position:absolute;top:7%;right:6%;" OnClick=@CloseOverlay  />
-<MudCarousel SelectedIndex=fullScreenTabIndex ItemsSource=articlePicUrls class="articleImages d-flex" ShowDelimiters=true Style="z-index:1201;position:absolute;top:50%;left:50%;height:90%;width:90%;transform:translate(-50%,-50%)"  AutoCycle=false TData=object>
-	<DelimiterTemplate  Context="selected">
-		<div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
-			<span class="carouselTab @(selected ? "carouselTab-selected" :"")"/>
-			@*<span class="fullCarouselTab @(selected ? "fullCarouselTab-selected" :"")" style="@fullCarousel[fullScreenTabIndex]"/>*@
-		</div>
-	</DelimiterTemplate>
-	<ItemTemplate Context="item"> 
-        <div class="d-flex flex-column flex-column justify-center" style="height:100%">
-           <div class="d-flex" style="height:100%">
-				<img class="fitter" src="@item" />
-			</div>
-        </div>
-    </ItemTemplate>
-	@*<ChildContent>
-		<MudCarouselItem Transition="Transition.Fade" Color="@Color.Primary" Tag="images.unsplash.com/photo-1632813101586-c6243f84a800?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80">
-			<div class="d-flex" style="height:100%">
-				<img class="fitter" src="https://images.unsplash.com/photo-1632813101586-c6243f84a800?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80" />
-			</div>
-		</MudCarouselItem>
-		<MudCarouselItem Transition="Transition.Fade" Color="@Color.Primary" Tag="images.unsplash.com/photo-1632814501477-7f3a88232a17?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1172&q=80">
-			<div class="d-flex" style="height:100%">
-				<img class="fitter" src="https://images.unsplash.com/photo-1632814501477-7f3a88232a17?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1172&q=80" />
-			</div>
-		</MudCarouselItem>
-		<MudCarouselItem Transition="Transition.Fade" Color="@Color.Primary" Tag="images.unsplash.com/photo-1632767576183-8a22609cc9e5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80">
-			<div class="d-flex" style="height:100%">
-				<img class="fitter" src="https://images.unsplash.com/photo-1632767576183-8a22609cc9e5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80" />
-			</div>
-		</MudCarouselItem>
-		<MudCarouselItem Transition="Transition.Fade" Color="@Color.Primary" Tag="images.unsplash.com/photo-1586227740560-8cf2732c1531?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1261&q=80">
-			<div class="d-flex" style="height:100%">
-				<img class="fitter" src="https://images.unsplash.com/photo-1586227740560-8cf2732c1531?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1261&q=80" />
-			</div>
-		</MudCarouselItem>
-	</ChildContent>*@
-
-</MudCarousel>
+		</ChildContent>
+	</MudCarousel>
 }
+@*-------------------*@
 
-
-<style>
-	.fullCarouselTab {
-		height: 30px;
-		width: 60px;
-		background-color: gry;
-		border-radius: 5px;
-		opacity: 50%;
-	}
-
-	.fullCarouselTab-selected {
-		opacity: 100%;
-	}
-</style>
-
-
-<div class="titleLine">
-	<MudText Typo=Typo.h3 Class="articleTitle">Article - @ArticleName</MudText>
-	<MudSpacer />
-	<MudText Typo=Typo.h5 Color=Color.Secondary Class="articleLocation">Foz</MudText>
-	<MudIcon Icon="fas fa-map-marker-alt" Color=Color.Secondary />
-</div>
-
-
-
-<div class="articleBody">
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-		\n
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
-		/n
-		ncididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-	</p>
-</div>
-
-<div class="mapouter">
-	<div class="gmap_canvas">
-		<iframe width="600" height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=2880%20Broadway,%20New%20York&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://123movies-a.com"></a><br><a href="https://www.embedgooglemap.net">embedgooglemap.net</a>
-		<style>
-			.gmap_canvas {
-				overflow: hidden;
-				background: none !important;
-				height: 300px;
-				width: 70%;
+<div style="margin:auto;max-width: 1100px">
+	<MudCarousel @bind-SelectedIndex=screenTabIndex class="articleImages d-flex" Style="height:350px;" AutoCycle=false TData=object>
+		<DelimiterTemplate Context="selected">
+			<div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+				<span class="carouselTab @(selected ? "carouselTab-selected" :"")" />
+			</div>
+		</DelimiterTemplate>
+		<ChildContent>
+			@foreach (var articlePic in articlePicUrls)
+			{
+				<MudCarouselItem Transition=Transition.Slide Color=Color.Primary>
+					<div class="d-flex flex-column flex-column justify-center" style="height:100%">
+						<div class="d-flex" style="height:100%">
+							<img @onclick=OpenOverlay class="fitter" src="@articlePic" />
+						</div>
+					</div>
+				</MudCarouselItem>
 			}
+		</ChildContent>
 
-			.mapouter {
-				display: flex;
-				justify-content: center;
-			}
-		</style>
+	</MudCarousel>
 
+	<style>
+		.carouselTab {
+			height: 5px;
+			width: 30px;
+			background-color: white;
+			border-radius: 5px;
+			opacity: 50%;
+		}
+
+		.carouselTab-selected {
+			opacity: 100%;
+		}
+	</style>
+
+
+
+
+
+
+	<style>
+		.fullCarouselTab {
+			height: 30px;
+			width: 60px;
+			background-color: gry;
+			border-radius: 5px;
+			opacity: 50%;
+		}
+
+		.fullCarouselTab-selected {
+			opacity: 100%;
+		}
+	</style>
+
+
+	<div class="titleLine" id="titleLine">
+		<MudText Typo=Typo.h3 Class="articleTitle">Article - @ArticleName</MudText>
+		<MudSpacer />
+		<MudText Typo=Typo.h5 Color=Color.Secondary Class="articleLocation">Foz</MudText>
+		<MudIcon Class="locationIcon" Icon="fas fa-map-marker-alt" Color=Color.Secondary />
 	</div>
+	<div class="d-inline-flex" style="margin-left:1vw;">
+		<Tag TagName="TestTag1" />
+		<Tag TagName="TestTag1" />
+		<Tag TagName="TestTestTag2" />
+		<Tag />
+	</div>
+
+	<MudText Typo=Typo.h3 Class="d-flex justify-center articleTitle mt-16" Style="font-weight:normal;margin-top:.5em;">Overview</MudText>
+
+	<div class="articleBody">
+		<p>
+			@time
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+			<br />
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
+			<br />
+			ncididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+			<br />
+			<br />
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+			<br />
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+		</p>
+		@*<p style="text-align:center;">...</p>*@
+	</div>
+
+	<MudDivider Class="ma-4" />
+
+	<MudText Typo=Typo.h3 Class="d-flex justify-center articleTitle ma-8" Style="font-weight:normal;">Informations</MudText>
+
+	@*<div class="d-flex justify-center align-center ma-2">
+		<MudIcon Color=Color.Secondary Class="mr-4" Icon="fas fa-map-marked-alt" />
+		<MudText Color=Color.Secondary Typo=Typo.h6 Style="font-weight:normal;">Rua Antonio Sa Carneiro,182</MudText>
+		</div>*@
+	<div class="d-flex justify-center flex-row mb-4">
+
+		<table style="border-spacing: 10px 6px;">
+			<tr>
+				<td class="d-inline-flex align-center">
+					<MudIcon  Size=Size.Small Icon="fas fa-desktop" />
+					<MudText Class="ml-2">Website:</MudText>
+				</td>
+				<td></td>
+				<td>
+					<MudLink Style="color:black !important" Underline="Underline.Always" Href="yahoo.com">yahoo.com</MudLink>
+				</td>
+			</tr>
+			<tr>
+				<td class="d-inline-flex align-center">
+					<MudIcon Size=Size.Small Icon="fas fa-phone-alt" />
+					<MudText  Class="ml-2">Phone:</MudText>
+				</td>
+				<td></td>
+				<td>
+					<MudLink Style="color:black !important" Underline="Underline.Always" Href="963477223">963477223</MudLink>
+				</td>
+			</tr>
+			<tr>
+				<td class="d-inline-flex align-center">
+					<MudIcon Size=Size.Small Icon="fas fa-map-signs" />
+					<MudText Class="ml-2">Address:</MudText>
+				</td>
+				<td></td>
+				<td>
+					<MudLink Style="color:black !important" Underline="Underline.Always" Href="https://goo.gl/maps/FN2x9Vagoy2HBf4Y8">Rau da Torre Eiffel,220</MudLink>
+				</td>
+			</tr>
+		</table>
+
+		<table class="ml-16" style="border-spacing: 10px 6px;">
+			<tr>
+				<td class="d-inline-flex align-center">
+					<MudIcon  Size=Size.Small Icon="fas fa-desktop" />
+					<MudText  Class="ml-2">Website:</MudText>
+				</td>
+				<td></td>
+				<td>
+					<MudLink Style="color:black !important"  Underline="Underline.Always" Href="yahoo.com">yahoo.com</MudLink>
+				</td>
+			</tr>
+			<tr>
+				<td class="d-inline-flex align-center">
+					<MudIcon Size=Size.Small Icon="fas fa-phone-alt" />
+					<MudText  Class="ml-2">Phone:</MudText>
+				</td>
+				<td></td>
+				<td>
+					<MudLink Style="color:black !important" Underline="Underline.Always" Href="963477223">963477223</MudLink>
+				</td>
+			</tr>
+			<tr>
+				<td class="d-inline-flex align-center">
+					<MudIcon Size=Size.Small Icon="fas fa-map-signs" />
+					<MudText  Class="ml-2">Address:</MudText>
+				</td>
+				<td></td>
+				<td>
+					<MudLink Style="color:black !important" Underline="Underline.Always" Href="https://goo.gl/maps/FN2x9Vagoy2HBf4Y8">Rau da Torre Eiffel,220</MudLink>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="mapouter" id="mapouter">
+
+
+		<div class="gmap_canvas">
+			<iframe width="600"
+					height="450"
+					style="border:0;border-radius:10px;"
+					loading="lazy"
+					allowfullscreen
+					src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDyWZBodczTV-WgDi8UTogA1cHYAS3nT0I
+    &q=iffel+Tower,Paris+France&language=pt">
+			</iframe>
+			<style>
+				.gmap_canvas {
+					overflow: hidden;
+					background: none !important;
+					height: 40vh;
+					width: 80%;
+				}
+
+				.mapouter {
+					display: flex;
+					justify-content: center;
+				}
+			</style>h
+
+		</div>
+	</div>
+	<div class="d-flex justify-center align-center ma-2">
+	</div>
+	<MudDivider Class="ma-4" />
+</div>
+<MudText Typo=Typo.h3 Class="d-flex justify-center articleTitle" Style="font-weight:normal;margin-top:.5em;">Share this Spot</MudText>
+
+
+<div class="d-flex justify-center share-bttn-container">
+	<MudFab Class="share-bttn blue shades-text text-white" DisableElevation="true" @onclick=ShareFacebook Icon="fab fa-facebook" />
+	<MudFab Class="share-bttn green shades-text text-white" DisableElevation="true" @onclick=ShareWhatsApp Icon="fab fa-whatsapp" />
+	<MudFab Class="share-bttn light-blue  shades-text text-white" DisableElevation="true" @onclick=ShareTwitter Icon="fab fa-twitter" />
+	<MudFab Class="share-bttn light-blue darken-3 shades-text text-white" DisableElevation="true" @onclick=ShareLinkedIn Icon="fab fa-linkedin-in" />
+	<MudFab Class="share-bttn grey darken-1 shades-text text-white" DisableElevation="true" @onclick=CopyLink Icon="fas fa-link" />
 </div>
 
 
@@ -167,6 +256,11 @@
 	.articleLocation {
 		font-weight: bold;
 		margin-right: 10px;
+		    font-size: 2.5em;
+	}
+
+	.locationIcon{
+		    font-size: 2.2em;
 	}
 
 
@@ -182,5 +276,15 @@
 
 	.mud-carousel.articleImages {
 		border-radius: 5px 5px 5px 5px;
+	}
+
+
+	.share-bttn-container {
+		display: inline-flex;
+		margin-top: 15px;
+	}
+
+	.share-bttn {
+		margin: 10px;
 	}
 </style>

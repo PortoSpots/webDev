@@ -3,6 +3,11 @@ body {
     font-family: 'Roboto', sans-serif !important;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+
 
     body::-webkit-scrollbar {
         width: 16px;

@@ -1,7 +1,9 @@
+@inject NavigationManager navigationManager
+
 <MudAppBar Elevation=0 Dense=true Class="sliding-appbar divider-appbar" Color=Color.Surface Style="@(HideAppBar? "top:-50px;" : "top:0px;")">
     @*<MudText Typo=Typo.h3 Color=Color.Primary Style="font-weight:900;">•</MudText>*@
     @*<MudText Typo=Typo.h5 Color=Color.Dark Style="font-weight:800;">Porto Spots</MudText>*@
-    <Logo Style="width:130px;fill:black;"/>
+    <Logo OnClick=GoToHome Style="width:130px;fill:#3874d6;"/>
     <MudSpacer />
     <div style="background-color: #f3f3f3;border-radius: 10px;width: 32vw;height: 82%;padding: 0px 10px 1px 10px;">
 
@@ -10,16 +12,16 @@
                         Variant=Variant.Text
                         DisableUnderLine=true
                         Placeholder="Search"
-background-color             AutoFocus=true
+                        AutoFocus=true
                         Dense=true
                           AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Dark"/>
     </div>
     <MudSpacer />
-    <MudIconButton Color=Color.Default Icon="fas fa-paper-plane" Style="margin:5px"/>
-    <MudIconButton Color=Color.Default Icon="fas fa-mug-hot" Style="margin:5px"/>
-    <MudIconButton Color=Color.Default Icon="fas fa-globe-africa" Style="margin:5px"/>
+    <MudIconButton Color=Color.Primary Icon="fas fa-paper-plane" Style="margin:5px"/>
+    <MudIconButton Color=Color.Primary Icon="fas fa-mug-hot" Style="margin:5px"/>
+    <MudIconButton Color=Color.Primary Icon="fas fa-globe-africa" Style="margin:5px"/>
 </MudAppBar>
- <MudScrollToTop OnScroll="OnScroll"/>
+ @*<MudScrollToTop OnScroll="OnScroll"/>*@
 
  <style>
  .sliding-appbar{
@@ -36,12 +38,12 @@ background-color             AutoFocus=true
     bool HideAppBar;
     double currentScrollValue=0;
 
-    private void OnScroll(ScrollEventArgs e)
-    {
-        var scrollValue = e.FirstChildBoundingClientRect.Top;
-        HideAppBar = scrollValue != 0 && scrollValue < currentScrollValue;
-        currentScrollValue = scrollValue;
-    }
+    //private void OnScroll(ScrollEventArgs e)
+    //{
+    //    var scrollValue = e.FirstChildBoundingClientRect.Top;
+    //    HideAppBar = scrollValue != 0 && scrollValue < currentScrollValue;
+    //    currentScrollValue = scrollValue;
+    //}
 
 
 
@@ -74,5 +76,9 @@ background-color             AutoFocus=true
         var lastValue= value.Contains(";")? value.Split(';')[^1]: value;
         Console.WriteLine("last " + lastValue);
         return states.Where(x => x.Contains(lastValue, StringComparison.InvariantCultureIgnoreCase));
+    }
+
+    private void GoToHome(){
+        navigationManager.NavigateTo("/");
     }
 }
